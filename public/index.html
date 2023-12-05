@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Usuarios</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2b2b2b; /* Fondo oscuro */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #fff; /* Texto blanco */
+        }
+
+        form {
+            background-color: #404040; /* Fondo del formulario */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #00bcd4; /* Color del encabezado */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            color: #fff; /* Color del texto */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #333; /* Color de fondo del input */
+            color: #fff; /* Color del texto en el input */
+        }
+
+        button {
+            background-color: #00bcd4; /* Color del botón */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #008c9e; /* Color del botón al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+
+    <form id="userForm">
+        <h2>Formulario de Usuarios</h2>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="rol">Rol:</label>
+        <input type="text" id="rol" name="rol" required>
+
+        <label for="estado">Estado:</label>
+        <input type="text" id="estado" name="estado" required>
+
+        <label for="google">Google:</label>
+        <input type="text" id="google" name="google" required>
+
+        <button type="button" onclick="enviarDatos()">Enviar</button>
+    </form>
+
+    <script>
+        function enviarDatos() {
+            // Obtener los datos del formulario
+            var nombre = document.getElementById('nombre').value;
+            var correo = document.getElementById('correo').value;
+            var password = document.getElementById('password').value;
+            var rol = document.getElementById('rol').value;
+            var estado = document.getElementById('estado').value;
+            var google = document.getElementById('google').value;
+
+            // Crear un objeto con los datos
+            var data = {
+                nombre: nombre,
+                correo: correo,
+                password: password,
+                rol: rol,
+                estado: estado,
+                google: google
+            };
+
+            // Realizar la solicitud POST al servidor
+            fetch('http://localhost:8080/api/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                // Puedes manejar la respuesta del servidor aquí, por ejemplo, mostrar un mensaje al usuario
+            })
+            .catch(error => {
+                console.error('Error al enviar datos:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>
